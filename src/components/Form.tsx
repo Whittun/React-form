@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-
 import { schema } from "../utils/schema";
+
+import "./Form.css";
 
 export const Form = () => {
   const {
@@ -26,7 +27,7 @@ export const Form = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="name"
         control={control}
