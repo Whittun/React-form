@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.child-wrapper {
+  padding: 20px;
+
+  border: 1px solid gray;
+  border-radius: 10px;
+}
