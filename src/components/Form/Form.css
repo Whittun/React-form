@@ -4,9 +4,69 @@
   gap: 20px;
 }
 
+.input {
+  padding: 10px;
+}
+
+.user {
+  display: grid;
+  grid-template-areas:
+    "a a b b"
+    "e e c c"
+    "f f f f"
+    "g g g g";
+  gap: 20px;
+  padding: 10px;
+
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+@media (max-width: 458px) {
+  .user { 
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.user-name {
+  grid-area: a;
+}
+
+.user-age {
+  grid-area: b;
+}
+
+.user-email {
+  grid-area: e;
+}
+
+.user-phoneNumber {
+  grid-area: c;
+}
+
+.childs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  grid-area: f;
+}
+
+.button-delete-user {
+  grid-area: g;
+}
+
 .child-wrapper {
+  display: flex;
+  gap: 20px;
   padding: 20px;
 
   border: 1px solid gray;
   border-radius: 10px;
+}
+
+@media (max-width: 641px) {
+  .child-wrapper {
+    flex-direction: column;
+  }
 }

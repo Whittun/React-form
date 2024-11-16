@@ -4,15 +4,28 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { schema } from "../../utils/schema";
 
 import "./Form.css";
-import { useEffect } from "react";
 import { Child } from "./childs";
+
+export type Form = {
+  users: UserField[];
+};
+
+type UserField = {
+  name: string;
+  age: string;
+  email: string;
+  phoneNumber: string;
+  childs: ChildField[];
+};
+
+type ChildField = { childName: string; childAge: string };
 
 export const Form = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Form>({
     resolver: zodResolver(schema),
     defaultValues: {
       users: [
@@ -33,16 +46,11 @@ export const Form = () => {
     console.log("форма отправлена");
   }
 
-  useEffect(() => {
-    console.log("fields:", fields);
-    console.log(errors);
-  }, [fields, errors]);
-
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       {fields.map((field, index) => {
         return (
-          <Box key={field.id}>
+          <Box className="user" key={field.id}>
             <Controller
               name={`users.${index}.name`}
               control={control}
@@ -52,6 +60,8 @@ export const Form = () => {
                   label="Имя"
                   error={!!errors.users?.[index]?.name}
                   helperText={errors.users?.[index]?.name?.message}
+                  size="small"
+                  className="user-name"
                 />
               )}
             />
@@ -65,6 +75,8 @@ export const Form = () => {
                   label="Возраст"
                   error={!!errors.users?.[index]?.age}
                   helperText={errors.users?.[index]?.age?.message}
+                  size="small"
+                  className="user-age"
                 />
               )}
             />
@@ -77,6 +89,8 @@ export const Form = () => {
                   label="Почта"
                   error={!!errors.users?.[index]?.email}
                   helperText={errors.users?.[index]?.email?.message}
+                  size="small"
+                  className="user-email"
                 />
               )}
             />
@@ -89,18 +103,22 @@ export const Form = () => {
                   label="Номер телефона"
                   error={!!errors.users?.[index]?.phoneNumber}
                   helperText={errors.users?.[index]?.phoneNumber?.message}
+                  size="small"
+                  className="user-phoneNumber"
                 />
               )}
             />
-            <Button onClick={() => remove(index)}>Удалить пользователя</Button>
-            <Child userIndex={index} control={control} errors={errors} />
+            <Child  userIndex={index} control={control} errors={errors} />
+            <Button
+              className="button-delete-user"
+              onClick={() => remove(index)}
+            >
+              Удалить пользователя
+            </Button>
           </Box>
         );
       })}
 
-      <Button disabled={!fields.length} type="submit" variant="contained">
-        Отправить
-      </Button>
       <Button
         type="button"
         variant="contained"
@@ -115,6 +133,9 @@ export const Form = () => {
         }
       >
         Добавить пользователя
+      </Button>
+      <Button disabled={!fields.length} type="submit" variant="contained">
+        Отправить
       </Button>
     </form>
   );

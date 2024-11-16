@@ -1,21 +1,29 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useEffect } from "react";
-import { Controller, useFieldArray } from "react-hook-form";
 
-export const Child = ({ control, userIndex, errors }) => {
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  useFieldArray,
+} from "react-hook-form";
+import { Form } from "./Form";
+
+import "./Form.css";
+
+type ChildProps = {
+  control: Control<Form>;
+  userIndex: number;
+  errors: FieldErrors<Form>;
+};
+
+export const Child: React.FC<ChildProps> = ({ control, userIndex, errors }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: `users.${userIndex}.childs`,
   });
 
-  useEffect(() => {
-    console.log("fields:", fields);
-    console.log("userIndex:", userIndex);
-    console.log("errors:", errors);
-  }, [errors]);
-
   return (
-    <Box>
+    <Box className="childs">
       {fields.map((field, index) => {
         return (
           <Box key={field.id} className="child-wrapper">
@@ -33,6 +41,8 @@ export const Child = ({ control, userIndex, errors }) => {
                     errors.users?.[userIndex]?.childs?.[index]?.childName
                       ?.message
                   }
+                  size="small"
+                  className="child-name"
                 />
               )}
             />
@@ -49,10 +59,16 @@ export const Child = ({ control, userIndex, errors }) => {
                     errors.users?.[userIndex]?.childs?.[index]?.childAge
                       ?.message
                   }
+                  size="small"
                 />
               )}
             />
-            <Button onClick={() => remove(index)}>Удалить ребёнка</Button>
+            <Button
+              className="button-delete-child"
+              onClick={() => remove(index)}
+            >
+              Удалить ребёнка
+            </Button>
           </Box>
         );
       })}
