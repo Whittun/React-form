@@ -4,7 +4,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { schema } from "../../utils/schema";
 
 import "./Form.css";
-import { Child } from "./childs";
+import { Child } from "./Childs";
 
 export type Form = {
   users: UserField[];
@@ -108,7 +108,7 @@ export const Form = () => {
                 />
               )}
             />
-            <Child  userIndex={index} control={control} errors={errors} />
+            <Child userIndex={index} control={control} errors={errors} />
             <Button
               className="button-delete-user"
               onClick={() => remove(index)}
